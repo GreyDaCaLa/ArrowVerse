@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+.Self_MainDivColor {
+  background-color: darkslategrey;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Self_ShowName{
+    font-size: 10vw;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Self_MidPictureText{
+    font-size: min(2vw,20px);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Self-PillColor {
+  background-color: burlywood;
 }
 
-.App-link {
-  color: #61dafb;
+.accordion {
+  border-width: 0px;
+  border-style: solid;
+  border-color: #41424c;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.accordion-item {
+  border-width: 0px;
+  border-style: solid;
+  border-color: #41424c;
+}
+
+.accordion-collapse {
+  border-width: 0px;
+  border-style: solid;
+  border-color: black;
+}
+
+.accordion-body {
+  background-color: burlywood;
+  font-size: 20px;
+
+  border-width: 0px;
+  border-style: solid;
+  border-color: black;
+}
+
+.accordion-button {
+  background-color: rgb(166, 218, 166);
+  color: #014421;
+
+  /* font-size: 5px; */
+}
+
+.accordion-button.collapsed {
+  background-color: grey;
+  color: #014421;
+
+  font-size: 30px;
 }
