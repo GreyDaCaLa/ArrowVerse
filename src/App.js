@@ -11,7 +11,7 @@ function App() {
   const [oneTime, setOneTime] = useState(false);
 
   function handleFetch_ShowMainInfo() {
-    console.log("The Main Info");
+    // console.log("The Main Info");
     // "tvrage":30715,"thetvdb":257655,"imdb":"tt2193021"
     let the_url = "https://api.tvmaze.com/lookup/shows?tvrage=30715";
     fetch(the_url, { mode: "cors" })
@@ -30,7 +30,7 @@ function App() {
   }
 
   function handleFetch_ShowMainCast() {
-    console.log("The Main Cast");
+    // console.log("The Main Cast");
     // "tvrage":30715,"thetvdb":257655,"imdb":"tt2193021"
     // ID = 4 for arrow
     let the_url = "https://api.tvmaze.com/shows/4/cast";
@@ -52,7 +52,7 @@ function App() {
 
 
   useEffect(() => {
-    console.log("--within useEffect");
+    // console.log("--within useEffect");
 
     if (!oneTime) {
       setOneTime(true);
@@ -65,14 +65,14 @@ function App() {
       }
     }
 
-    if (mainD && castD) {
-      console.log("mainD: ", mainD);
-      // console.log("premiered: ",mainD.premiered)
-      // console.log("name: ",mainD.name)
-      // console.log("type: ",mainD.type)
-      // console.log("castD: ",mainD.ended)
-      console.log("CastD", castD);
-    }
+    // if (mainD && castD) {
+    //   // console.log("mainD: ", mainD);
+    //   // console.log("premiered: ",mainD.premiered)
+    //   // console.log("name: ",mainD.name)
+    //   // console.log("type: ",mainD.type)
+    //   // console.log("castD: ",mainD.ended)
+    //   // console.log("CastD", castD);
+    // }
   },[oneTime,mainD,castD]);
 
   return (

@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router";
 
 function PersonPage() {
   const [perD, setPersD] = useState();
+  const [dataChecked,setDataChecked] =useState(false)
   const [oneTime, setOneTime] = useState(false);
 
   const navigate = useNavigate();
@@ -14,9 +15,9 @@ function PersonPage() {
   const { id } = useParams();
 
   function handleFetch_PersonInfo() {
-    console.log("The Person Info");
+    // console.log("The Person Info");
     // "tvrage":30715,"thetvdb":257655,"imdb":"tt2193021"
-    let the_url = "https://api.tvmaze.com/people/" + `${id}`;
+    let the_url = `https://api.tvmaze.com/people/${id}`;
     fetch(the_url, { mode: "cors" })
       .then((response) => {
         return response.json();
@@ -32,17 +33,66 @@ function PersonPage() {
       });
   }
 
+  function formatData(){
+    // console.log("original data",perD)
+    let od={...perD}
+
+    if(!od.image){
+      od["image"]={original:null}
+    }
+    //
+    if(!od.name){
+      od["name"]="NO-NAME"
+    }
+    //
+    if(!od.birthday){
+      od["birthday"]="UnKnown"
+    }
+    if(!od.country){
+      od["country"]={name:"UnKnown"}
+    }
+
+
+    // perD
+    //   image
+    //     original
+    //   name
+    //   birthday
+    //   country
+    //     name
+    //   deathday
+    //   id
+    //   updated
+
+    //   gender
+
+
+
+
+    // console.log("formated data",od)
+    setPersD(od);
+    setDataChecked(true);
+
+  }
+
   useEffect(() => {
     if (!oneTime) {
+      setOneTime(true);
       if (!perD) {
         handleFetch_PersonInfo();
       }
     }
 
-    if (perD) {
-      console.log("perD", perD);
-      // console.log(perD.name.replace(/ /g,''))
+    if (perD && !dataChecked) {
+      // console.log("perD", perD);
+      formatData();
     }
+
+    // if(perD && dataChecked){
+    //   // console.log("new perD", perD);
+    // }
+
+
   }, [oneTime, perD]);
 
   function downloadFile(data) {
@@ -51,7 +101,10 @@ function PersonPage() {
     const a = document.createElement("a");
     a.setAttribute("hidden", "");
     a.setAttribute("href", url);
-    a.setAttribute("download", `Person-${perD.name.replace(/ /g, "")}.csv`);
+    if(!perD.name){a.setAttribute("download", `Person-Download.csv`);}
+    else{
+      a.setAttribute("download", `Person-${perD.name.replace(/ /g, "")}.csv`);
+    }
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -64,9 +117,9 @@ function PersonPage() {
     for (let key in data) {
       headarr.push(key);
     }
-    console.log("Headarr", headarr);
+    // console.log("Headarr", headarr);
     csvRows.push(headarr.join(","));
-    console.log("csvRows1: ", csvRows);
+    // console.log("csvRows1: ", csvRows);
 
     // Creating values and dealing with commas and quatations
     let values = [];
@@ -85,6 +138,7 @@ function PersonPage() {
       name: perD.name,
       gender: perD.gender,
       country: perD.country.name,
+      birthday: perD.birthday,
       deathday: perD.deathday == null ? "Still Living" : perD.deathday,
       id: perD.id,
       updated: perD.updated,
@@ -100,7 +154,7 @@ function PersonPage() {
     return(   
     <div className="row justify-content-center align-items-center p-3">
       <div className="col-12 col-md-5">
-        <img src={perD.image.original} alt="..." className="img-fluid rounded" />
+        <img src={perD.image.original} alt="Poster Missing" className="img-fluid rounded" />
       </div>
       <div className="col-12 col-md-5">
         <div className="card text-center border border-3 border-dark " style={{backgroundColor:"grey" }}>
@@ -129,15 +183,15 @@ function PersonPage() {
 
         </div>
       </div>
-      {/* {perD?<button onClick={()=>{getReport()}}>DownLoad Person INFO TO CSV</button>:""} */}
     </div>
     )
   }
 
   return (
     <div id="PersonPageMainDiv">
+      {/* {console.log("rendor perD", perD)} */}
 
-        {perD?dispPerD():""}
+        {perD&&dataChecked?dispPerD():""}
 
       </div>
   );

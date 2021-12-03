@@ -8,7 +8,7 @@ function ShowPage({ mainD, castD }) {
   const [oneTime, setOneTime] = useState(false);
 
   function handleFetch_ShowMainInfo() {
-    console.log("The Images Info");
+    // console.log("The Images Info");
     // "tvrage":30715,"thetvdb":257655,"imdb":"tt2193021"
     let the_url = "https://api.tvmaze.com/shows/4/images";
     fetch(the_url, { mode: "cors" })
@@ -36,7 +36,7 @@ function ShowPage({ mainD, castD }) {
 
     if (images && !imgCount) {
       setImgCount(images.length + 1);
-      console.log("Show Images", images);
+      // console.log("Show Images", images);
     }
   }, [oneTime, images]);
 
